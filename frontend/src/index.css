@@ -1,0 +1,528 @@
+/* ---------------------------------------------------------
+   Design tokens
+   Palette: deep teal-charcoal + muted sage + warm brass accent
+   on a cool pale-sage background — built for a calm, trustworthy
+   scheduling tool, deliberately avoiding the cream/terracotta
+   and near-black/neon defaults.
+--------------------------------------------------------- */
+:root {
+  --bg: #EEF2F0;
+  --surface: #FFFFFF;
+  --ink: #16211F;
+  --ink-soft: #4B5B57;
+  --line: #D9E1DD;
+
+  --teal: #1F3A3D;
+  --teal-700: #16292B;
+  --sage: #4E6E63;
+  --sage-100: #E3EAE6;
+  --brass: #B98B3E;
+  --brass-100: #F3E6CC;
+
+  --danger: #B23A34;
+  --danger-100: #F6E2E0;
+  --ok: #3D7A5C;
+  --ok-100: #DEEEE4;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", monospace;
+
+  --shadow-card: 0 1px 2px rgba(22, 33, 31, 0.06), 0 8px 24px -12px rgba(22, 33, 31, 0.18);
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--teal-700);
+  margin: 0 0 0.4em 0;
+  letter-spacing: -0.01em;
+}
+
+a { color: inherit; }
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ---------------------------------------------------------
+   Layout shells
+--------------------------------------------------------- */
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 32px;
+  background: var(--teal);
+  color: #F4F7F5;
+}
+
+.topbar .brand {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.topbar .brand .mark {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--brass);
+  display: inline-block;
+}
+
+.topbar nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-size: 14px;
+}
+
+.topbar nav a, .topbar nav button.linklike {
+  color: rgba(244, 247, 245, 0.82);
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-size: 14px;
+  padding: 0;
+}
+
+.topbar nav a:hover, .topbar nav button.linklike:hover {
+  color: #fff;
+}
+
+.topbar .pill-role {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: rgba(185, 139, 62, 0.22);
+  color: var(--brass-100);
+  padding: 4px 9px;
+  border-radius: 100px;
+}
+
+.main-area {
+  flex: 1;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* Centered auth pages */
+.auth-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 20% 20%, rgba(78, 110, 99, 0.14), transparent 45%),
+              radial-gradient(circle at 85% 80%, rgba(185, 139, 62, 0.12), transparent 40%),
+              var(--bg);
+  padding: 24px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 40px 36px;
+  border: 1px solid var(--line);
+}
+
+.auth-card .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 10px;
+}
+
+.auth-card h1 {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+.auth-card .sub {
+  color: var(--ink-soft);
+  font-size: 14px;
+  margin-bottom: 26px;
+}
+
+.auth-switch {
+  margin-top: 20px;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+.auth-switch a {
+  color: var(--teal);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--brass);
+}
+
+/* ---------------------------------------------------------
+   Form elements
+--------------------------------------------------------- */
+.field {
+  margin-bottom: 16px;
+}
+
+.field label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+.field input, .field textarea, .field select {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: #FCFDFC;
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  color: var(--ink);
+}
+
+.field input:focus, .field textarea:focus, .field select:focus {
+  border-color: var(--sage);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 11px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: transform 0.06s ease, background 0.15s ease;
+}
+
+.btn:active { transform: scale(0.98); }
+
+.btn-primary {
+  background: var(--teal);
+  color: #fff;
+  width: 100%;
+}
+.btn-primary:hover { background: var(--teal-700); }
+
+.btn-brass {
+  background: var(--brass);
+  color: #fff;
+}
+.btn-brass:hover { background: #a37a35; }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--teal);
+  border: 1px solid var(--line);
+}
+.btn-ghost:hover { border-color: var(--sage); }
+
+.btn-danger {
+  background: var(--danger-100);
+  color: var(--danger);
+}
+.btn-danger:hover { background: #efd0cd; }
+
+.btn-sm { padding: 7px 12px; font-size: 12.5px; }
+
+.error-banner {
+  background: var(--danger-100);
+  color: var(--danger);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13.5px;
+  margin-bottom: 16px;
+}
+
+.success-banner {
+  background: var(--ok-100);
+  color: var(--ok);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13.5px;
+  margin-bottom: 16px;
+}
+
+/* ---------------------------------------------------------
+   Dashboard / cards
+--------------------------------------------------------- */
+.page-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.page-head .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  box-shadow: var(--shadow-card);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 800px) {
+  .grid-2 { grid-template-columns: 1fr; }
+  .topbar { padding: 14px 18px; flex-wrap: wrap; gap: 10px; }
+  .main-area { padding: 24px 16px 60px; }
+}
+
+.service-list { display: flex; flex-direction: column; gap: 10px; }
+
+.service-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  background: #FCFDFC;
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+
+.service-option:hover { border-color: var(--sage); }
+
+.service-option.selected {
+  border-color: var(--teal);
+  background: var(--sage-100);
+}
+
+.service-option .name {
+  font-weight: 600;
+  color: var(--teal-700);
+}
+
+.service-option .meta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.service-option .price {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--brass);
+}
+
+/* Signature element: the time-slot picker.
+   Each slot is a pill; the selected slot gets a soft radial
+   "held" glow, echoing a reserved moment in time. */
+.slot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.slot-pill {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 10px 6px;
+  text-align: center;
+  border-radius: 100px;
+  border: 1px solid var(--line);
+  background: #FCFDFC;
+  color: var(--ink);
+  position: relative;
+}
+
+.slot-pill:hover { border-color: var(--sage); }
+
+.slot-pill.selected {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #fff;
+  box-shadow: 0 0 0 6px rgba(31, 58, 61, 0.12), radial-gradient(circle, rgba(185,139,62,0.35), transparent 70%);
+}
+
+.slot-empty {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+/* ---------------------------------------------------------
+   Bookings table / list
+--------------------------------------------------------- */
+.booking-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.booking-row:last-child { border-bottom: none; }
+
+.booking-row .svc {
+  font-weight: 600;
+  color: var(--teal-700);
+}
+
+.booking-row .when {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.status-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
+  border-radius: 100px;
+  width: fit-content;
+}
+
+.status-pending { background: var(--brass-100); color: #7a5a20; }
+.status-confirmed { background: var(--ok-100); color: var(--ok); }
+.status-cancelled { background: var(--danger-100); color: var(--danger); }
+.status-completed { background: var(--sage-100); color: var(--sage); }
+
+@media (max-width: 700px) {
+  .booking-row { grid-template-columns: 1fr; gap: 4px; }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--ink-soft);
+}
+
+.empty-state h3 { color: var(--ink); }
+
+.loading-line {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--sage);
+}
+
+.section-title {
+  font-size: 17px;
+  margin-bottom: 14px;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 18px;
+}
+
+.stat-card .num {
+  font-family: var(--font-display);
+  font-size: 30px;
+  color: var(--teal-700);
+  font-weight: 600;
+}
+
+.stat-card .label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+}
+
+.tab-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 10px 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  border-bottom: 2px solid transparent;
+  margin-right: 14px;
+}
+
+.tab-btn.active {
+  color: var(--teal-700);
+  border-bottom-color: var(--brass);
+}
